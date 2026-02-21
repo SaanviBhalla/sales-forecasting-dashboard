@@ -37,7 +37,7 @@ sales = sales.sort_values(["Product Category", "Date"])
 sales["yesterday_sales"] = sales.groupby("Product Category")["Sales"].shift(1)
 sales["last_week_sales"] = sales.groupby("Product Category")["Sales"].shift(7)
 
-sales["recent_trend"] = (
+sales["week_sales_mean"] = (
     sales.groupby("Product Category")["Sales"]
          .shift(1)
          .rolling(7)
@@ -46,4 +46,5 @@ sales["recent_trend"] = (
 
 sales = sales.dropna()
 
-print(sales.head())
+# turn this new processed dataset into a csv file 
+sales.to_csv("artifacts/pre_sales.csv")
